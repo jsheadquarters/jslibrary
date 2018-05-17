@@ -8,9 +8,10 @@ router.route("/users")
 
 router.route("/users/:id")
   .get(users.show)
+  .patch(users.update)
   .delete(users.destroy);
 
 router.route("/nuke")
-  .get(users.nuke);
+  .post(users.nuke);
 
 module.exports = router;

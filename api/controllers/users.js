@@ -30,11 +30,22 @@ module.exports = {
       res.json(user);
     });
   },
+  "update": function (req, res) {
+    const {"params": {id}, body} = req;
+    db.User.findByIdAndUpdate(id, body, (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json(err);
+      }
+      console.log(`Updated user ${user && user.id}`);
+      res.json(user);
+    });
+  },
   "destroy": function (req, res) {
     const {"params": {id}} = req;
     db.User.findOneAndRemove({_id: id}, (err) => {
       if (err) {
-        console.error(req, err);
+        console.error(err);
         return res.status(500).json(err);
       }
       res.send(`Successfully deleted user ${id}.`);
